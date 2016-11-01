@@ -2,9 +2,7 @@
 <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-center modal-sm">
     <div class="modal-content">
-      <div class="modal-header" align="center">
-        
-        <div class="modal-body" align="center">
+      <div class="modal-body" align="center">
         <%= form_for(@truck) do |f| %>
           <% if @truck.errors.any? %>
             <div id="error_explanation">
@@ -23,7 +21,6 @@
             <button type="submit" class="btn btn-success btn-lg btn-block btn3d">Check In</button>
           </form>
           <% end %>
-        </div>
       </div>
     </div>
   </div>

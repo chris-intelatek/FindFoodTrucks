@@ -63,8 +63,6 @@ function showError(error) {
 
 
 
-
-
     function getLocationConstant() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError);
@@ -85,7 +83,3 @@ function showError(error) {
     function onGeoError(event) {
         alert("Error code " + event.code + ". " + event.message);
     }
-
-
-
-
