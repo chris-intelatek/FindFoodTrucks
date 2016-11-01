@@ -75,5 +75,5 @@ private
   end
     
   def truck_params
-    params.require(:truck).permit(:business_name, :website, :phone, :owner_name, :business_address, :email, :current_location, :latitude, :longitude, :food_type, :avatar, :user_id, :avatar, :username, :location)
+    params.require(:truck).permit(:business_name, :website, :phone, :owner_name, :business_address, :email, :current_location, :latitude, :longitude, :food_type, :avatar, :user_id, :avatar, :username, :location, :twitter)
   end

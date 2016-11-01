@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161030225004) do
+ActiveRecord::Schema.define(version: 20161101155827) do
 
   create_table "trucks", force: :cascade do |t|
     t.string   "business_name",       limit: 60
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20161030225004) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "location"
+    t.string   "twitter"
     t.index ["user_id"], name: "index_trucks_on_user_id"
   end
 

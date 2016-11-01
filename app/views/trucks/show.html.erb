@@ -38,6 +38,12 @@
           <strong>Email:</strong>
           <%= @truck.email %>
         </p>
+        
+        <p>
+          <strong>Twitter:</strong>
+          <a href="https://twitter.com/<%= @truck.twitter %>" class="twitter-follow-button" data-show-count="false">Follow on Twitter</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </p>
+        
         <p>
           <strong>Current Location:</strong>
           <%= @truck.location %>
@@ -68,8 +74,13 @@
 
     <div id="destination-map"></div>
 
+
+<%= javascript_tag do %>
+   latitude = '35.2924';
+   longitude = '-81.5356';
+<% end %>
+
 <%= javascript_tag do %>
    latitude = '<%= j @truck.latitude.to_s %>';
    longitude = '<%= j @truck.longitude.to_s %>';
 <% end %>
-    

@@ -1,3 +1,7 @@
+<div id="destination-map"></div>
+
+
+
 <br>
 <div class="container">
   <div class="jumbotron">
@@ -15,6 +19,13 @@
               <p><%= t.user.username %></p>
               <% if t.avatar.exists? %>
                 <%= image_tag t.avatar.url(:thumb), class: "image-responsive" %>
+                
+<%= javascript_tag do %>
+   latitude = '<%= j t.latitude.to_s %>';
+   longitude = '<%= j t.longitude.to_s %>';
+<% end %>
+
+                
               <% end %>
               <br>
               <br>

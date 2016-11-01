@@ -11,7 +11,7 @@ $(document).ready(function (){
       var marker = new google.maps.Marker({
       position: myLatLing,
       map: map,
-      title: address
+      title: myLatLing
       });
       var contentString = '<h2>' + address + '</h2>' + '<p>' + description + '</p>';
       var infowindow = new google.maps.InfoWindow({
