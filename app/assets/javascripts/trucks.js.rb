@@ -1,1 +1,0 @@
-$('.advanced-reset-btn').click(function() { $('#your-form')[0].reset() })

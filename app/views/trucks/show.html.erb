@@ -1,3 +1,6 @@
+
+
+
 <br>
 <div class="container">
   <div class="jumbotron">
@@ -49,6 +52,10 @@
         </p>
       </div>
     </div>
+
+
+    
+    
     <div class="btn-toolbar">
       <%= link_to 'Back', trucks_path, class: "btn btn-default" %> 
       <% if current_user.id == @truck.user_id %>
@@ -58,3 +65,11 @@
     </div>
   </div>
 </div>
+
+    <div id="destination-map"></div>
+
+<%= javascript_tag do %>
+   latitude = '<%= j @truck.latitude.to_s %>';
+   longitude = '<%= j @truck.longitude.to_s %>';
+<% end %>
+    
