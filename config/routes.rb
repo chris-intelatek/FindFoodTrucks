@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
-  root 'trucks#home'
+  root 'trucks#index'
   get 'nearme' => 'trucks#nearme'
   get 'profile/:id' => 'trucks#profile'
   get 'checkin/:id' => 'trucks#checkin', as: :checkin

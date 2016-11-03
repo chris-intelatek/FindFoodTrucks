@@ -1,43 +1,142 @@
-<div id="destination-map"></div>
+<!--Gets the user's location on pageload-->
 
-
-
-<br>
-<div class="container">
-  <div class="jumbotron">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">Listing Food Trucks</h2>
-          </div>
-            <div class="panel-body">
-            <p id="notice"><%= notice %></p>
-            
-            <% @trucks.each do |t| %>
-              <h2><%= t.business_name %></h2>
-              <h3><%= t.food_type %></h3>
-              <p><%= t.current_location %></p>
-              <p><%= t.user.username %></p>
-              <% if t.avatar.exists? %>
-                <%= image_tag t.avatar.url(:thumb), class: "image-responsive" %>
-                
-<%= javascript_tag do %>
-   latitude = '<%= j t.latitude.to_s %>';
-   longitude = '<%= j t.longitude.to_s %>';
-<% end %>
-
-                
-              <% end %>
-              <br>
-              <br>
-              <div class="btn-group">
-                <%= link_to 'Show', t, class: "btn btn-default" %>
-
-              </div>
-              <hr>
-            <% end %>
-        <br>
+<!-- Modal -->
+<div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-center modal-sm">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <img src="/trk.jpg">
+      </div>
+      <div class="modal-body" align="center">
+        <button onclick="getLocation()" type="button" class="btn btn-primary btn-lg btn-block btn3d" data-dismiss="modal">Find a Food Truck Near Me</button>
       </div>
     </div>
   </div>
 </div>
 
+<script type="text/javascript">
+<!--
+$('#memberModal').modal('show');
+//-->
+</script>
+
+
+
+
+
+<!--Creates an Array of locations for currently checked in Trucks based on user's food type selection-->
+    <% i = 0 %>
+    <% trucksArray = [] %>
+<% latitudeArray = [] %>
+<% longitudeArray = [] %>
+<% bnameArray = [] %>
+<% idArray = [] %>
+<% @trucks.each do |a| %>
+  <% if a.location.present? %>
+
+    <% bnameArray << a.business_name %>
+    <% latitudeArray << a.latitude.to_s %>
+    <% longitudeArray << a.longitude.to_s %>
+    <% idArray << a.id.to_s %>
+    <% trucksArray << [bnameArray[i] + ", " + latitudeArray[i] + ", " + longitudeArray[i] + ", " + idArray[i]] %>
+    <% i += 1 %>
+  <% end %>
+<% end %>
+
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: {lat: 35.7725576, lng: -78.6400843}
+        });
+        setMarkers(map);
+      }
+
+      // Data for the markers consisting of a name, a LatLng and a zIndex for the
+      // order in which these markers should display on top of each other.
+      var trucks = [
+        ['Sams Burgers', 35.4798757, -79.1802994, 2],
+        ['Sallys Subs', 35.7725576, -78.6400843, 12],
+        ['Alston Bridges Barbecue', 35.776645099999996, -78.6453997, 13],
+        ['Mikes Burgers', 35.7847, -78.6821, 14]
+      ];
+
+
+      function setMarkers(map) {
+        // Adds markers to the map.
+
+        // Marker sizes are expressed as a Size of X,Y where the origin of the image
+        // (0,0) is located in the top left of the image.
+
+        // Origins, anchor positions and coordinates of the marker increase in the X
+        // direction to the right and in the Y direction down.
+        var image = {
+          url: 'http://intelatek.com/images/ft.png',
+          // This marker is 20 pixels wide by 32 pixels high.
+          size: new google.maps.Size(40, 40),
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(0, 32)
+        };
+        // Shapes define the clickable region of the icon. The type defines an HTML
+        // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+        // The final coordinate closes the poly by connecting to the first coordinate.
+        var shape = {
+          coords: [1, 1, 1, 20, 18, 20, 18, 1],
+          type: 'poly'
+        };
+        for (var i = 0; i < trucks.length; i++) {
+          var truck = trucks[i];
+          var marker = new google.maps.Marker({
+            position: {lat: truck[1], lng: truck[2]},
+            map: map,
+            icon: image,
+            shape: shape,
+            title: truck[0],
+            zIndex: truck[3]
+          });
+        }
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap">
+    </script>
+ 
+ <br>
+
+
+<div id="index-body">
+  <br>
+  <div class="container">
+    <div class="jumbotron">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">Listing Food Trucks</h2>
+              <%= trucksArray %>
+            </div>
+              <div class="panel-body">
+              <p id="notice"><%= notice %></p>
+              
+              <% @trucks.each do |t| %>
+                <h2><%= t.business_name %></h2>
+                <h3><%= t.food_type %></h3>
+                <p><%= t.location %></p>
+                <p><%= t.user.username %></p>
+                <% if t.avatar.exists? %>
+                  <%= image_tag t.avatar.url(:thumb), class: "image-responsive" %>
+                <% end %>
+                <br>
+                <br>
+                <div class="btn-group">
+                  <%= link_to 'Show', t, class: "btn btn-default" %>
+  
+                </div>
+                <hr>
+              <% end %>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

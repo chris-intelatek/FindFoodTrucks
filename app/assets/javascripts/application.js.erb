@@ -15,6 +15,8 @@
 //= require_tree .
 
 
+<!--Renders map with current location on Home & Nearme views -->    
+
 var x = document.getElementById("demo");
 function getLocation() {
     if (navigator.geolocation) {
@@ -63,6 +65,7 @@ function showError(error) {
 
 
 
+<!--This uses html5 to get the latitude amnd longitude which we pass to hidden fields in the form in the checkin view to add location data to a truck -->
 
     function getLocationConstant() {
         if (navigator.geolocation) {
@@ -84,6 +87,3 @@ function showError(error) {
     function onGeoError(event) {
         alert("Error code " + event.code + ". " + event.message);
     }
-    
-    
-  
